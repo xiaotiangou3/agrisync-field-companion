@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,15 +16,17 @@ interface AddAlertDialogProps {
 
 export default function AddAlertDialog({ onAdd, defaultLat, defaultLng }: AddAlertDialogProps) {
   const [open, setOpen] = useState(false);
-  const [lat, setLat] = useState(defaultLat?.toString() || '');
-  const [lng, setLng] = useState(defaultLng?.toString() || '');
+  const [lat, setLat] = useState('');
+  const [lng, setLng] = useState('');
   const [crop, setCrop] = useState('');
   const [alertType, setAlertType] = useState<AlertType>('pest');
   const [desc, setDesc] = useState('');
 
-  // Sync defaults when map is clicked
-  if (defaultLat && lat !== defaultLat.toFixed(4)) setLat(defaultLat.toFixed(4));
-  if (defaultLng && lng !== defaultLng.toFixed(4)) setLng(defaultLng.toFixed(4));
+  useEffect(() => {
+    if (defaultLat !== undefined) setLat(defaultLat.toFixed(4));
+    if (defaultLng !== undefined) setLng(defaultLng.toFixed(4));
+    if (defaultLat !== undefined && defaultLng !== undefined) setOpen(true);
+  }, [defaultLat, defaultLng]);
 
   const handleSubmit = () => {
     if (!lat || !lng || !crop || !desc) return;
@@ -38,6 +40,8 @@ export default function AddAlertDialog({ onAdd, defaultLat, defaultLng }: AddAle
     setOpen(false);
     setCrop('');
     setDesc('');
+    setLat('');
+    setLng('');
   };
 
   return (
