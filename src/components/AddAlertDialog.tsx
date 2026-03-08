@@ -46,12 +46,6 @@ export default function AddAlertDialog({ onAdd, defaultLat, defaultLng }: AddAle
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button size="lg" className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg h-14 w-14 md:w-auto md:px-6 md:rounded-lg">
-          <Plus className="h-6 w-6" />
-          <span className="hidden md:inline ml-2">Report Alert</span>
-        </Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="font-heading">Report Community Alert</DialogTitle>
