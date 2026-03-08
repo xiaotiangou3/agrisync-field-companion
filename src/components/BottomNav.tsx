@@ -12,6 +12,7 @@ const tabs = [
   { id: 'dashboard' as Tab, label: 'Home', icon: LayoutDashboard },
   { id: 'map' as Tab, label: 'Map', icon: Map },
   { id: 'alerts' as Tab, label: 'Alerts', icon: Bell },
+  { id: 'pests' as Tab, label: 'Pests', icon: Bug },
   { id: 'advisor' as Tab, label: 'Advisor', icon: MessageSquare },
 ];
 

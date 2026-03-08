@@ -93,6 +93,13 @@ export default function Index() {
             </motion.div>
           )}
 
+          {activeTab === 'pests' && (
+            <motion.div key="pests" {...tabFade} className="space-y-3 md:space-y-6">
+              <PestPredictionCard />
+              <BugIdentifier onAlertAdded={() => setAlerts(getAlerts())} />
+            </motion.div>
+          )}
+
           {activeTab === 'advisor' && (
             <motion.div key="advisor" {...tabFade}>
               <AgroChatPanel embedded />
