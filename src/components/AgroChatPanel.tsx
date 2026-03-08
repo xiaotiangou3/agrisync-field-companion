@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Bot, Send, X, MessageSquare, Loader2 } from 'lucide-react';
+import { Bot, Send, X, MessageSquare, Loader2, ImagePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
@@ -17,7 +17,9 @@ export default function AgroChatPanel({ embedded = false }: AgroChatPanelProps) 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [pendingImage, setPendingImage] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -26,12 +28,35 @@ export default function AgroChatPanel({ embedded = false }: AgroChatPanelProps) 
     }
   }, [messages]);
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      toast({ variant: 'destructive', title: 'Invalid file', description: 'Please upload an image.' });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ variant: 'destructive', title: 'File too large', description: 'Max 5 MB.' });
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => setPendingImage(reader.result as string);
+    reader.readAsDataURL(file);
+    if (fileRef.current) fileRef.current.value = '';
+  };
+
   const send = async () => {
     const text = input.trim();
-    if (!text || loading) return;
+    if ((!text && !pendingImage) || loading) return;
     setInput('');
+    const image = pendingImage;
+    setPendingImage(null);
 
-    const userMsg: ChatMessage = { role: 'user', content: text };
+    const userMsg: ChatMessage = {
+      role: 'user',
+      content: text || (image ? 'What can you tell me about this image?' : ''),
+      ...(image ? { image } : {}),
+    };
     setMessages((prev) => [...prev, userMsg]);
     setLoading(true);
 
@@ -114,7 +139,7 @@ export default function AgroChatPanel({ embedded = false }: AgroChatPanelProps) 
               <Bot className="h-6 w-6 text-primary" />
             </div>
             <p className="text-sm text-muted-foreground max-w-[260px]">
-              Ask me about crop health, pest management, or field conditions. I have access to your latest field data.
+              Ask me about crop health, pest management, or field conditions. You can also upload photos for analysis.
             </p>
           </div>
         )}
@@ -130,12 +155,19 @@ export default function AgroChatPanel({ embedded = false }: AgroChatPanelProps) 
                     : 'bg-muted rounded-bl-sm'
                 )}
               >
+                {m.image && (
+                  <img
+                    src={m.image}
+                    alt="Uploaded"
+                    className="mb-2 max-h-40 rounded-lg object-cover"
+                  />
+                )}
                 {m.role === 'assistant' ? (
                   <div className="prose prose-sm max-w-none dark:prose-invert [&>*:first-child]:mt-0 [&>*:last-child]:mb-0">
                     <ReactMarkdown>{m.content}</ReactMarkdown>
                   </div>
                 ) : (
-                  <span>{m.content}</span>
+                  m.content && <span>{m.content}</span>
                 )}
               </div>
             </div>
@@ -150,9 +182,42 @@ export default function AgroChatPanel({ embedded = false }: AgroChatPanelProps) 
         </div>
       </ScrollArea>
 
+      {/* Pending image preview */}
+      {pendingImage && (
+        <div className="border-t px-3 pt-2">
+          <div className="relative inline-block">
+            <img src={pendingImage} alt="To upload" className="h-16 rounded-lg object-cover" />
+            <button
+              onClick={() => setPendingImage(null)}
+              className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-destructive-foreground text-xs"
+            >
+              <X className="h-3 w-3" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Input */}
       <div className="border-t p-3">
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
+          className="hidden"
+          onChange={handleImageUpload}
+        />
         <div className="flex gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-10 w-10 shrink-0"
+            onClick={() => fileRef.current?.click()}
+            disabled={loading}
+            type="button"
+          >
+            <ImagePlus className="h-4 w-4" />
+          </Button>
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -163,7 +228,7 @@ export default function AgroChatPanel({ embedded = false }: AgroChatPanelProps) 
           />
           <Button
             onClick={send}
-            disabled={!input.trim() || loading}
+            disabled={(!input.trim() && !pendingImage) || loading}
             size="icon"
             className="h-10 w-10 shrink-0"
           >

@@ -1,6 +1,10 @@
 import { getAlerts, type CommunityAlert } from './alerts-store';
 
-export type ChatMessage = { role: 'user' | 'assistant'; content: string };
+export type ChatMessage = {
+  role: 'user' | 'assistant';
+  content: string;
+  image?: string; // base64 data URL for user-uploaded images
+};
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/agro-chat`;
 
@@ -60,7 +64,15 @@ export async function streamChat({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
     },
-    body: JSON.stringify({ messages, fieldHealth, nearbyAlerts }),
+    body: JSON.stringify({
+      messages: messages.map(m => ({
+        role: m.role,
+        content: m.content,
+        image: m.image,
+      })),
+      fieldHealth,
+      nearbyAlerts,
+    }),
   });
 
   if (!resp.ok) {
