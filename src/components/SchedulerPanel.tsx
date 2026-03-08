@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { format, parseISO, isPast, isToday } from 'date-fns';
+import { useState, useMemo } from 'react';
+import { format, parseISO, isPast, isToday, isSameDay } from 'date-fns';
 import { CalendarIcon, Clock, Plus, Trash2, CheckCircle2, Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -32,6 +32,7 @@ export default function SchedulerPanel() {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState<Date>();
   const [time, setTime] = useState('08:00');
+  const [selectedDay, setSelectedDay] = useState<Date>(new Date());
 
   const refresh = () => setActions(getScheduledActions());
 
@@ -64,6 +65,16 @@ export default function SchedulerPanel() {
     deleteScheduledAction(id);
     refresh();
   };
+
+  // Days that have scheduled actions (for calendar dots)
+  const actionDates = useMemo(() => {
+    return actions.filter((a) => !a.completed).map((a) => parseISO(a.date));
+  }, [actions]);
+
+  // Actions for the selected day
+  const dayActions = useMemo(() => {
+    return actions.filter((a) => isSameDay(parseISO(a.date), selectedDay));
+  }, [actions, selectedDay]);
 
   const upcoming = actions.filter((a) => !a.completed);
   const completed = actions.filter((a) => a.completed);
@@ -117,18 +128,45 @@ export default function SchedulerPanel() {
         </Dialog>
       </div>
 
-      {upcoming.length === 0 && completed.length === 0 && (
-        <Card>
-          <CardContent className="py-10 text-center text-muted-foreground text-sm">
-            No reminders yet. Tap "New Reminder" to get started.
-          </CardContent>
-        </Card>
-      )}
+      {/* Calendar overview */}
+      <Card>
+        <CardContent className="p-2 flex flex-col items-center">
+          <Calendar
+            mode="single"
+            selected={selectedDay}
+            onSelect={(d) => d && setSelectedDay(d)}
+            className="p-3 pointer-events-auto"
+            modifiers={{ hasAction: actionDates }}
+            modifiersClassNames={{ hasAction: 'ring-2 ring-primary/40 ring-offset-1 rounded-md' }}
+          />
+        </CardContent>
+      </Card>
 
+      {/* Actions for selected day */}
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm font-medium text-muted-foreground">
+            {isToday(selectedDay) ? 'Today' : format(selectedDay, 'MMM d, yyyy')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {dayActions.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-4">No reminders for this day.</p>
+          ) : (
+            <div className="space-y-2">
+              {dayActions.map((action) => (
+                <ReminderItem key={action.id} action={action} onToggle={handleToggle} onDelete={handleDelete} />
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* All upcoming */}
       {upcoming.length > 0 && (
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Upcoming</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">All Upcoming</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {upcoming.map((action) => (
