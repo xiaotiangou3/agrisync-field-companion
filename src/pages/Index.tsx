@@ -5,6 +5,7 @@ import AlertMap from '@/components/AlertMap';
 import FieldHealthCard from '@/components/FieldHealthCard';
 import AlertsList from '@/components/AlertsList';
 import AddAlertDialog from '@/components/AddAlertDialog';
+import ReportIssueDrawer from '@/components/ReportIssueDrawer';
 import StatsBar from '@/components/StatsBar';
 import { getAlerts, addAlert, type AlertType } from '@/lib/alerts-store';
 
