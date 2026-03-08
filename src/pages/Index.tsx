@@ -78,6 +78,8 @@ export default function Index() {
         onOpenChange={setDrawerOpen}
         onSubmit={handleAddAlert}
       />
+
+      <AgroChatPanel />
     </div>
   );
 }
