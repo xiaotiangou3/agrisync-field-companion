@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Button } from '@/components/ui/button';
+import { AlertTriangle } from 'lucide-react';
 import type { CommunityAlert } from '@/lib/alerts-store';
 
 const ALERT_COLORS: Record<string, string> = {
