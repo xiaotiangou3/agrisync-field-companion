@@ -8,6 +8,8 @@ import AddAlertDialog from '@/components/AddAlertDialog';
 import ReportIssueDrawer from '@/components/ReportIssueDrawer';
 import StatsBar from '@/components/StatsBar';
 import AgroChatPanel from '@/components/AgroChatPanel';
+import PestPredictionCard from '@/components/PestPredictionCard';
+import BugIdentifier from '@/components/BugIdentifier';
 import BottomNav, { type Tab } from '@/components/BottomNav';
 import { getAlerts, addAlert, type AlertType } from '@/lib/alerts-store';
 
@@ -88,6 +90,13 @@ export default function Index() {
           {activeTab === 'alerts' && (
             <motion.div key="alerts" {...tabFade}>
               <AlertsList alerts={alerts} />
+            </motion.div>
+          )}
+
+          {activeTab === 'pests' && (
+            <motion.div key="pests" {...tabFade} className="space-y-3 md:space-y-6">
+              <PestPredictionCard />
+              <BugIdentifier onAlertAdded={() => setAlerts(getAlerts())} />
             </motion.div>
           )}
 

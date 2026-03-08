@@ -2,3 +2,6 @@ project_id = "nyetmhepcbxjeltvdloz"
 
 [functions.agro-chat]
 verify_jwt = false
+
+[functions.identify-bug]
+verify_jwt = false
