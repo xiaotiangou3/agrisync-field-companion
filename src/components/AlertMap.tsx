@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Button } from '@/components/ui/button';
+import { AlertTriangle } from 'lucide-react';
 import type { CommunityAlert } from '@/lib/alerts-store';
 
 const ALERT_COLORS: Record<string, string> = {
@@ -40,10 +42,11 @@ function createIcon(alertType: string) {
 interface AlertMapProps {
   alerts: CommunityAlert[];
   onMapClick?: (lat: number, lng: number) => void;
+  onReportIssue?: () => void;
   className?: string;
 }
 
-export default function AlertMap({ alerts, onMapClick, className = '' }: AlertMapProps) {
+export default function AlertMap({ alerts, onMapClick, onReportIssue, className = '' }: AlertMapProps) {
   const mapRef = useRef<L.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -112,5 +115,19 @@ export default function AlertMap({ alerts, onMapClick, className = '' }: AlertMa
     };
   }, [onMapClick]);
 
-  return <div ref={containerRef} className={`w-full h-full min-h-[300px] rounded-lg ${className}`} />;
+  return (
+    <div className="relative w-full h-full">
+      <div ref={containerRef} className={`w-full h-full min-h-[300px] rounded-lg ${className}`} />
+      {onReportIssue && (
+        <Button
+          onClick={onReportIssue}
+          size="sm"
+          className="absolute top-3 left-3 z-[1000] shadow-lg gap-1.5"
+        >
+          <AlertTriangle className="h-4 w-4" />
+          Report Issue
+        </Button>
+      )}
+    </div>
+  );
 }

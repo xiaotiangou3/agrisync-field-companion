@@ -5,6 +5,7 @@ import AlertMap from '@/components/AlertMap';
 import FieldHealthCard from '@/components/FieldHealthCard';
 import AlertsList from '@/components/AlertsList';
 import AddAlertDialog from '@/components/AddAlertDialog';
+import ReportIssueDrawer from '@/components/ReportIssueDrawer';
 import StatsBar from '@/components/StatsBar';
 import { getAlerts, addAlert, type AlertType } from '@/lib/alerts-store';
 
@@ -16,6 +17,7 @@ const fadeUp = {
 export default function Index() {
   const [alerts, setAlerts] = useState(getAlerts);
   const [clickedCoords, setClickedCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleMapClick = useCallback((lat: number, lng: number) => {
     setClickedCoords({ lat, lng });
@@ -48,7 +50,7 @@ export default function Index() {
               <p className="text-xs text-muted-foreground">Tap the map to report an alert at that location</p>
             </div>
             <div className="h-[300px] md:h-[420px]">
-              <AlertMap alerts={alerts} onMapClick={handleMapClick} />
+              <AlertMap alerts={alerts} onMapClick={handleMapClick} onReportIssue={() => setDrawerOpen(true)} />
             </div>
           </div>
         </motion.div>
@@ -68,6 +70,12 @@ export default function Index() {
         onAdd={handleAddAlert}
         defaultLat={clickedCoords?.lat}
         defaultLng={clickedCoords?.lng}
+      />
+
+      <ReportIssueDrawer
+        open={drawerOpen}
+        onOpenChange={setDrawerOpen}
+        onSubmit={handleAddAlert}
       />
     </div>
   );
