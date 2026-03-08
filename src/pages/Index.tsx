@@ -71,6 +71,12 @@ export default function Index() {
         defaultLat={clickedCoords?.lat}
         defaultLng={clickedCoords?.lng}
       />
+
+      <ReportIssueDrawer
+        open={drawerOpen}
+        onOpenChange={setDrawerOpen}
+        onSubmit={handleAddAlert}
+      />
     </div>
   );
 }

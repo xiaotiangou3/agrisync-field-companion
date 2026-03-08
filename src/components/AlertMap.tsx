@@ -115,5 +115,19 @@ export default function AlertMap({ alerts, onMapClick, onReportIssue, className 
     };
   }, [onMapClick]);
 
-  return <div ref={containerRef} className={`w-full h-full min-h-[300px] rounded-lg ${className}`} />;
+  return (
+    <div className="relative w-full h-full">
+      <div ref={containerRef} className={`w-full h-full min-h-[300px] rounded-lg ${className}`} />
+      {onReportIssue && (
+        <Button
+          onClick={onReportIssue}
+          size="sm"
+          className="absolute top-3 left-3 z-[1000] shadow-lg gap-1.5"
+        >
+          <AlertTriangle className="h-4 w-4" />
+          Report Issue
+        </Button>
+      )}
+    </div>
+  );
 }
