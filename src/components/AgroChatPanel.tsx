@@ -8,7 +8,11 @@ import { useToast } from '@/hooks/use-toast';
 import { streamChat, type ChatMessage } from '@/lib/agro-chat';
 import { cn } from '@/lib/utils';
 
-export default function AgroChatPanel() {
+interface AgroChatPanelProps {
+  embedded?: boolean;
+}
+
+export default function AgroChatPanel({ embedded = false }: AgroChatPanelProps) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
@@ -66,11 +70,11 @@ export default function AgroChatPanel() {
     }
   };
 
-  if (!open) {
+  if (!embedded && !open) {
     return (
       <Button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full shadow-lg"
+        className="fixed bottom-20 right-4 z-40 h-14 w-14 rounded-full shadow-lg"
         size="icon"
       >
         <MessageSquare className="h-6 w-6" />
@@ -78,9 +82,13 @@ export default function AgroChatPanel() {
     );
   }
 
+  const containerClass = embedded
+    ? 'flex flex-col rounded-xl border bg-card shadow-sm h-[calc(100vh-220px)]'
+    : 'fixed bottom-20 right-4 z-50 flex w-[360px] max-w-[calc(100vw-2rem)] flex-col rounded-xl border bg-card shadow-2xl md:w-[420px]';
+
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex w-[360px] max-w-[calc(100vw-2rem)] flex-col rounded-xl border bg-card shadow-2xl md:w-[420px]"
-      style={{ height: 'min(600px, calc(100vh - 6rem))' }}
+    <div className={containerClass}
+      style={embedded ? undefined : { height: 'min(500px, calc(100vh - 10rem))' }}
     >
       {/* Header */}
       <div className="flex items-center gap-2 border-b px-4 py-3">
@@ -91,9 +99,11 @@ export default function AgroChatPanel() {
           <h3 className="text-sm font-semibold font-heading">AI Agronomy Advisor</h3>
           <p className="text-[11px] text-muted-foreground">Using your field data for context</p>
         </div>
-        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setOpen(false)}>
-          <X className="h-4 w-4" />
-        </Button>
+        {!embedded && (
+          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setOpen(false)}>
+            <X className="h-4 w-4" />
+          </Button>
+        )}
       </div>
 
       {/* Messages */}
