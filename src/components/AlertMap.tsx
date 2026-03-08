@@ -122,7 +122,7 @@ export default function AlertMap({ alerts, onMapClick, onReportIssue, className 
         <Button
           onClick={onReportIssue}
           size="sm"
-          className="absolute top-3 left-3 z-[1000] shadow-lg gap-1.5"
+          className="absolute top-3 left-3 z-30 shadow-lg gap-1.5"
         >
           <AlertTriangle className="h-4 w-4" />
           Report Issue
