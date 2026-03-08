@@ -15,12 +15,18 @@ function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number): nu
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
+let _latestFieldData = { ndvi: 0.72, predictedYield: 4.5, soilMoisture: 64, solarExposure: 6.8 };
+
+export function setFieldHealthData(data: { ndvi: number; predictedYield: number; soilMoisture: number; solarExposure: number }) {
+  _latestFieldData = data;
+}
+
 export function getFieldHealthContext() {
   return {
-    ndvi: 0.72,
-    yieldForecast: '4.2 t/ha',
-    soilMoisture: '64%',
-    solarExposure: '6.8 hrs',
+    ndvi: _latestFieldData.ndvi,
+    predictedYield: `${_latestFieldData.predictedYield} t/ha`,
+    soilMoisture: `${_latestFieldData.soilMoisture}%`,
+    solarExposure: `${_latestFieldData.solarExposure} hrs`,
   };
 }
 
