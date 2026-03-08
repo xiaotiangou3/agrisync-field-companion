@@ -182,6 +182,26 @@ export default function AgroChatPanel({ embedded = false }: AgroChatPanelProps) 
         </div>
       </ScrollArea>
 
+      {/* Quick prompts */}
+      {messages.length === 0 && !pendingImage && (
+        <div className="border-t px-3 pt-2 flex flex-wrap gap-1.5">
+          {[
+            '🌱 How is my crop health?',
+            '🐛 Pest risk this week?',
+            '💧 Irrigation advice',
+            '📊 Yield forecast',
+          ].map((prompt) => (
+            <button
+              key={prompt}
+              onClick={() => { setInput(prompt); }}
+              className="rounded-full border bg-muted/50 px-2.5 py-1 text-xs text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              {prompt}
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Pending image preview */}
       {pendingImage && (
         <div className="border-t px-3 pt-2">
