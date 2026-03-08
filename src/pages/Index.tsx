@@ -7,6 +7,7 @@ import AlertsList from '@/components/AlertsList';
 import AddAlertDialog from '@/components/AddAlertDialog';
 import ReportIssueDrawer from '@/components/ReportIssueDrawer';
 import StatsBar from '@/components/StatsBar';
+import AgroChatPanel from '@/components/AgroChatPanel';
 import { getAlerts, addAlert, type AlertType } from '@/lib/alerts-store';
 
 const fadeUp = {
