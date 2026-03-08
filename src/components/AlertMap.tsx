@@ -46,7 +46,7 @@ interface AlertMapProps {
   className?: string;
 }
 
-export default function AlertMap({ alerts, onMapClick, className = '' }: AlertMapProps) {
+export default function AlertMap({ alerts, onMapClick, onReportIssue, className = '' }: AlertMapProps) {
   const mapRef = useRef<L.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
