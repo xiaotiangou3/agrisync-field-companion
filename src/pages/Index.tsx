@@ -50,7 +50,7 @@ export default function Index() {
               <p className="text-xs text-muted-foreground">Tap the map to report an alert at that location</p>
             </div>
             <div className="h-[300px] md:h-[420px]">
-              <AlertMap alerts={alerts} onMapClick={handleMapClick} />
+              <AlertMap alerts={alerts} onMapClick={handleMapClick} onReportIssue={() => setDrawerOpen(true)} />
             </div>
           </div>
         </motion.div>
