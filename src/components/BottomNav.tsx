@@ -1,7 +1,7 @@
-import { LayoutDashboard, Map, Bell, MessageSquare } from 'lucide-react';
+import { LayoutDashboard, Map, Bell, MessageSquare, Bug } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-type Tab = 'dashboard' | 'map' | 'alerts' | 'advisor';
+type Tab = 'dashboard' | 'map' | 'alerts' | 'pests' | 'advisor';
 
 interface BottomNavProps {
   active: Tab;
