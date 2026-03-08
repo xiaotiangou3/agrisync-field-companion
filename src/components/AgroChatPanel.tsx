@@ -8,7 +8,11 @@ import { useToast } from '@/hooks/use-toast';
 import { streamChat, type ChatMessage } from '@/lib/agro-chat';
 import { cn } from '@/lib/utils';
 
-export default function AgroChatPanel() {
+interface AgroChatPanelProps {
+  embedded?: boolean;
+}
+
+export default function AgroChatPanel({ embedded = false }: AgroChatPanelProps) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
