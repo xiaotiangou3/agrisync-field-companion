@@ -5,6 +5,7 @@ import AlertMap from '@/components/AlertMap';
 import FieldHealthCard from '@/components/FieldHealthCard';
 import AlertsList from '@/components/AlertsList';
 import AddAlertDialog from '@/components/AddAlertDialog';
+import SchedulerPanel from '@/components/SchedulerPanel';
 import ReportIssueDrawer from '@/components/ReportIssueDrawer';
 import StatsBar from '@/components/StatsBar';
 import AgroChatPanel from '@/components/AgroChatPanel';
@@ -70,6 +71,10 @@ export default function Index() {
               <motion.div initial="hidden" animate="visible" custom={2} variants={fadeUp}>
                 <FieldHealthCard />
               </motion.div>
+
+              <motion.div initial="hidden" animate="visible" custom={3} variants={fadeUp}>
+                <AlertsList alerts={alerts} />
+              </motion.div>
             </motion.div>
           )}
 
@@ -87,9 +92,9 @@ export default function Index() {
             </motion.div>
           )}
 
-          {activeTab === 'alerts' && (
-            <motion.div key="alerts" {...tabFade}>
-              <AlertsList alerts={alerts} />
+          {activeTab === 'scheduler' && (
+            <motion.div key="scheduler" {...tabFade}>
+              <SchedulerPanel />
             </motion.div>
           )}
 
