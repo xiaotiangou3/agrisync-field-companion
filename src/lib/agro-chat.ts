@@ -1,6 +1,10 @@
 import { getAlerts, type CommunityAlert } from './alerts-store';
 
-export type ChatMessage = { role: 'user' | 'assistant'; content: string };
+export type ChatMessage = {
+  role: 'user' | 'assistant';
+  content: string;
+  image?: string; // base64 data URL for user-uploaded images
+};
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/agro-chat`;
 
