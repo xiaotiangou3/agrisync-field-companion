@@ -42,6 +42,7 @@ function createIcon(alertType: string) {
 interface AlertMapProps {
   alerts: CommunityAlert[];
   onMapClick?: (lat: number, lng: number) => void;
+  onReportIssue?: () => void;
   className?: string;
 }
 
