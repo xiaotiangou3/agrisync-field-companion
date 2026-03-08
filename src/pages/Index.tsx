@@ -5,6 +5,7 @@ import AlertMap from '@/components/AlertMap';
 import FieldHealthCard from '@/components/FieldHealthCard';
 import AlertsList from '@/components/AlertsList';
 import AddAlertDialog from '@/components/AddAlertDialog';
+import SchedulerPanel from '@/components/SchedulerPanel';
 import ReportIssueDrawer from '@/components/ReportIssueDrawer';
 import StatsBar from '@/components/StatsBar';
 import AgroChatPanel from '@/components/AgroChatPanel';
