@@ -17,6 +17,7 @@ const fadeUp = {
 export default function Index() {
   const [alerts, setAlerts] = useState(getAlerts);
   const [clickedCoords, setClickedCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleMapClick = useCallback((lat: number, lng: number) => {
     setClickedCoords({ lat, lng });
