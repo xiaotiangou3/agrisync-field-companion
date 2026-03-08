@@ -122,6 +122,12 @@
   .font-body {
     font-family: var(--font-body);
   }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
 }
 
 /* Leaflet overrides */
