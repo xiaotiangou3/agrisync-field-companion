@@ -11,6 +11,7 @@ import ReportIssueDrawer from '@/components/ReportIssueDrawer';
 import StatsBar from '@/components/StatsBar';
 import AgroChatPanel from '@/components/AgroChatPanel';
 import PestPredictionCard from '@/components/PestPredictionCard';
+import DailyBriefing from '@/components/DailyBriefing';
 import BugIdentifier from '@/components/BugIdentifier';
 import BottomNav, { type Tab } from '@/components/BottomNav';
 import { getAlerts, addAlert, type AlertType } from '@/lib/alerts-store';
