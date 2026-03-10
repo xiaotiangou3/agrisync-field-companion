@@ -74,15 +74,15 @@ export default function Index() {
                 </div>
               </motion.div>
 
-              <motion.div initial="hidden" animate="visible" custom={2} variants={fadeUp}>
+              <motion.div initial="hidden" animate="visible" custom={3} variants={fadeUp}>
                 <UpcomingActions onGoToScheduler={() => setActiveTab('scheduler')} />
               </motion.div>
 
-              <motion.div initial="hidden" animate="visible" custom={3} variants={fadeUp}>
+              <motion.div initial="hidden" animate="visible" custom={4} variants={fadeUp}>
                 <FieldHealthCard />
               </motion.div>
 
-              <motion.div initial="hidden" animate="visible" custom={4} variants={fadeUp}>
+              <motion.div initial="hidden" animate="visible" custom={5} variants={fadeUp}>
                 <AlertsList alerts={alerts} />
               </motion.div>
             </motion.div>
