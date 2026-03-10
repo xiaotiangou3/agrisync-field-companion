@@ -11,6 +11,7 @@ import ReportIssueDrawer from '@/components/ReportIssueDrawer';
 import StatsBar from '@/components/StatsBar';
 import AgroChatPanel from '@/components/AgroChatPanel';
 import PestPredictionCard from '@/components/PestPredictionCard';
+import DailyBriefing from '@/components/DailyBriefing';
 import BugIdentifier from '@/components/BugIdentifier';
 import BottomNav, { type Tab } from '@/components/BottomNav';
 import { getAlerts, addAlert, type AlertType } from '@/lib/alerts-store';
@@ -58,6 +59,10 @@ export default function Index() {
               </motion.div>
 
               <motion.div initial="hidden" animate="visible" custom={1} variants={fadeUp}>
+                <DailyBriefing />
+              </motion.div>
+
+              <motion.div initial="hidden" animate="visible" custom={2} variants={fadeUp}>
                 <div className="rounded-lg border overflow-hidden bg-card shadow-sm">
                   <div className="p-3 border-b">
                     <h2 className="text-sm font-semibold font-heading">Community Alert Map</h2>
@@ -69,15 +74,15 @@ export default function Index() {
                 </div>
               </motion.div>
 
-              <motion.div initial="hidden" animate="visible" custom={2} variants={fadeUp}>
+              <motion.div initial="hidden" animate="visible" custom={3} variants={fadeUp}>
                 <UpcomingActions onGoToScheduler={() => setActiveTab('scheduler')} />
               </motion.div>
 
-              <motion.div initial="hidden" animate="visible" custom={3} variants={fadeUp}>
+              <motion.div initial="hidden" animate="visible" custom={4} variants={fadeUp}>
                 <FieldHealthCard />
               </motion.div>
 
-              <motion.div initial="hidden" animate="visible" custom={4} variants={fadeUp}>
+              <motion.div initial="hidden" animate="visible" custom={5} variants={fadeUp}>
                 <AlertsList alerts={alerts} />
               </motion.div>
             </motion.div>
