@@ -59,6 +59,10 @@ export default function Index() {
               </motion.div>
 
               <motion.div initial="hidden" animate="visible" custom={1} variants={fadeUp}>
+                <DailyBriefing />
+              </motion.div>
+
+              <motion.div initial="hidden" animate="visible" custom={2} variants={fadeUp}>
                 <div className="rounded-lg border overflow-hidden bg-card shadow-sm">
                   <div className="p-3 border-b">
                     <h2 className="text-sm font-semibold font-heading">Community Alert Map</h2>
