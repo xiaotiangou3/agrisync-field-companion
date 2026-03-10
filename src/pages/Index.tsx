@@ -34,7 +34,7 @@ function buildBriefRows(alerts: ReturnType<typeof getAlerts>) {
   // Weather row
   const weatherAlert: BriefRow = {
     headline: 'Heavy rain at 3PM — postpone fertilizing',
-    subLabel: 'Weather impact on today's tasks',
+    subLabel: "Weather impact on today's tasks",
   };
 
   // Community alert row
