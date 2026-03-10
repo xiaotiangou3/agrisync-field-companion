@@ -1,7 +1,7 @@
-import { LayoutDashboard, Map, CalendarClock, MessageSquare, Bug } from 'lucide-react';
+import { LayoutDashboard, Map, CalendarClock, MessageSquare, Bug, CloudSun } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-type Tab = 'dashboard' | 'map' | 'scheduler' | 'pests' | 'advisor';
+type Tab = 'dashboard' | 'map' | 'weather' | 'scheduler' | 'pests' | 'advisor';
 
 interface BottomNavProps {
   active: Tab;
@@ -11,6 +11,7 @@ interface BottomNavProps {
 const tabs = [
   { id: 'dashboard' as Tab, label: 'Home', icon: LayoutDashboard },
   { id: 'map' as Tab, label: 'Map', icon: Map },
+  { id: 'weather' as Tab, label: 'Weather', icon: CloudSun },
   { id: 'scheduler' as Tab, label: 'Schedule', icon: CalendarClock },
   { id: 'pests' as Tab, label: 'Pests', icon: Bug },
   { id: 'advisor' as Tab, label: 'Advisor', icon: MessageSquare },
