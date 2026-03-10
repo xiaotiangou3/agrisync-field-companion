@@ -55,7 +55,7 @@ function buildBriefRows(alerts: ReturnType<typeof getAlerts>) {
     try { return isToday(parseISO(a.date)); } catch { return false; }
   });
   const topTask: BriefRow = todayAction
-    ? { headline: `${todayAction.label} — due today`, subLabel: todayAction.crop || 'Scheduled task' }
+    ? { headline: `${todayAction.title} — due today`, subLabel: todayAction.description || 'Scheduled task' }
     : { headline: 'Water chili seedlings — due by 9AM', subLabel: 'Highest priority task today' };
 
   return { weatherAlert, communityAlert, topTask };
