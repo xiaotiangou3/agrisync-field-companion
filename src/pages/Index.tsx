@@ -14,6 +14,7 @@ import PestPredictionCard from '@/components/PestPredictionCard';
 import DailyAIBrief, { type BriefRow } from '@/components/DailyAIBrief';
 import BugIdentifier from '@/components/BugIdentifier';
 import WeatherPage from '@/pages/WeatherPage';
+import FarmsPage from '@/pages/FarmsPage';
 import BottomNav, { type Tab } from '@/components/BottomNav';
 import { getAlerts, addAlert, type AlertType } from '@/lib/alerts-store';
 import { getScheduledActions } from '@/lib/scheduler-store';
