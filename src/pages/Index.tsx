@@ -180,6 +180,12 @@ export default function Index() {
               <AgroChatPanel embedded />
             </motion.div>
           )}
+
+          {activeTab === 'farms' && (
+            <motion.div key="farms" {...tabFade}>
+              <FarmsPage />
+            </motion.div>
+          )}
         </AnimatePresence>
       </main>
 
