@@ -1,7 +1,7 @@
 import { LayoutDashboard, Map, CalendarClock, MessageSquare, Bug, CloudSun, Tractor } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-type Tab = 'dashboard' | 'map' | 'weather' | 'scheduler' | 'pests' | 'advisor';
+type Tab = 'dashboard' | 'map' | 'weather' | 'scheduler' | 'pests' | 'advisor' | 'farms';
 
 interface BottomNavProps {
   active: Tab;
