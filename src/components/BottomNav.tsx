@@ -1,4 +1,4 @@
-import { LayoutDashboard, Map, CalendarClock, MessageSquare, Bug, CloudSun } from 'lucide-react';
+import { LayoutDashboard, Map, CalendarClock, MessageSquare, Bug, CloudSun, Tractor } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Tab = 'dashboard' | 'map' | 'weather' | 'scheduler' | 'pests' | 'advisor';
