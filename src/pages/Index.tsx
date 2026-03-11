@@ -14,6 +14,7 @@ import PestPredictionCard from '@/components/PestPredictionCard';
 import DailyAIBrief, { type BriefRow } from '@/components/DailyAIBrief';
 import BugIdentifier from '@/components/BugIdentifier';
 import WeatherPage from '@/pages/WeatherPage';
+import FarmsPage from '@/pages/FarmsPage';
 import BottomNav, { type Tab } from '@/components/BottomNav';
 import { getAlerts, addAlert, type AlertType } from '@/lib/alerts-store';
 import { getScheduledActions } from '@/lib/scheduler-store';
@@ -177,6 +178,12 @@ export default function Index() {
           {activeTab === 'advisor' && (
             <motion.div key="advisor" {...tabFade}>
               <AgroChatPanel embedded />
+            </motion.div>
+          )}
+
+          {activeTab === 'farms' && (
+            <motion.div key="farms" {...tabFade}>
+              <FarmsPage />
             </motion.div>
           )}
         </AnimatePresence>
